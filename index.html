@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will you go on a date with me?</title>
+  <title>Sorry Pritu 💕</title>
   <style>
     * {
       box-sizing: border-box;
@@ -27,19 +27,26 @@
       max-width: 400px;
       position: relative;
     }
-    h2 { color: #d32f2f; margin-bottom: 10px; }
+    .sorry-text {
+      color: #888;
+      font-size: 15px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    h2 { color: #d32f2f; margin-bottom: 10px; margin-top: 5px; }
     p { color: #555; font-size: 14px; }
     
     .btn-container {
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 15px;
       margin-top: 20px;
       position: relative;
       min-height: 50px;
     }
     button {
-      padding: 10px 25px;
+      padding: 10px 20px;
       border: none;
       border-radius: 25px;
       font-size: 16px;
@@ -50,12 +57,10 @@
     .yes-btn {
       background-color: #e91e63;
       color: white;
-      width: 100%;
     }
     .no-btn {
       background-color: #ce93d8;
       color: white;
-      position: absolute;
     }
 
     .hidden { display: none; }
@@ -112,16 +117,23 @@
       font-weight: bold;
       color: #e91e63;
     }
+    .kiss-btn {
+      background-color: #ff4081;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
   <!-- STEP 1: Question -->
   <div class="card" id="step1">
+    <div class="sorry-text">Sorry Pritu for my behavior 🥲🥲</div>
     <div style="font-size: 50px;">🐶</div>
     <h2>🌸 Will you go on a date with me? 🌸</h2>
     <div class="btn-container">
-      <button class="yes-btn" style="width: auto;" onclick="nextStep(2)">YES 💕</button>
+      <button class="yes-btn" onclick="nextStep(2)">YES 💕</button>
       <button class="no-btn" id="noBtn" onmouseover="moveNoBtn()" onclick="moveNoBtn()">no 🐾</button>
     </div>
   </div>
@@ -131,7 +143,7 @@
     <div style="font-size: 50px;">🧈</div>
     <h2>WAIT YOU ACTUALLY SAID YES?? 🥳</h2>
     <p>I was so ready for you to say no 🥹</p>
-    <button class="yes-btn" onclick="nextStep(3)">okay okay! →</button>
+    <button class="yes-btn" style="width:100%" onclick="nextStep(3)">okay okay! →</button>
   </div>
 
   <!-- STEP 3: Self-Select Date & Time -->
@@ -157,7 +169,7 @@
       <option>4:30 PM</option>
     </select>
     
-    <button class="yes-btn" onclick="nextStep(4)">set the date! 💕</button>
+    <button class="yes-btn" style="width:100%" onclick="nextStep(4)">set the date! 💕</button>
   </div>
 
   <!-- STEP 4: Food Preference -->
@@ -177,26 +189,32 @@
   <!-- STEP 5: Confirmation Message -->
   <div class="card hidden" id="step5">
     <h2>glad you didn't say no. be ready by 6, I'm coming to get you 🏎️</h2>
-    <p>P.S. normal people text. I made a website on Replit, during lunch, for you. no big deal 💕</p>
+    <p>P.S. normal people text. I made a website for you, no big deal 💕</p>
     <br>
-    <button class="yes-btn" onclick="nextStep(6)">ok I accept! 🥳</button>
+    <button class="yes-btn" style="width:100%" onclick="nextStep(6)">ok I accept! 🥳</button>
   </div>
 
   <!-- STEP 6: Final Prank Payment Screen -->
   <div class="card hidden" id="step6">
     <div style="font-size: 40px;">💳</div>
     <h2>one small fee</h2>
-    <p>to confirm your acceptance of this date, please complete the following transaction, totally normal. everyone does this.</p>
+    <p>to confirm your acceptance of this date, please complete the following transaction.</p>
 
     <div class="bill-box">
       <div style="text-align: left;">
         <strong>Date Agreement™</strong>
-        <div style="font-size: 11px; color: #777;">one-time for • non-refundable • absolutely worth it</div>
+        <div style="font-size: 11px; color: #777;">one-time fee • non-refundable</div>
       </div>
       <div class="price">$499</div>
     </div>
 
-    <button class="yes-btn" onclick="alert('Payment Confirmed! ❤️ Date booked!')">pay $499 & confirm 💖</button>
+    <!-- 499 Option -->
+    <button class="yes-btn" style="width:100%" onclick="alert('Tum gareeb ho! Try another option 🙄')">pay $499 & confirm 💖</button>
+    
+    <br><br>
+
+    <!-- Ek Kiss Option -->
+    <button class="kiss-btn" onclick="alert('Mai pay karunga ❤️')">Ek kiss 💋</button>
   </div>
 
   <script>
@@ -216,4 +234,3 @@
   </script>
 </body>
 </html>
-
