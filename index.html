@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will you go on a date with me?</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #fce4ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+    h2 { color: #d32f2f; margin-bottom: 10px; }
+    p { color: #555; font-size: 14px; }
+    
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      position: relative;
+      min-height: 50px;
+    }
+    button {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .yes-btn {
+      background-color: #e91e63;
+      color: white;
+      width: 100%;
+    }
+    .no-btn {
+      background-color: #ce93d8;
+      color: white;
+      position: absolute;
+    }
+
+    .hidden { display: none; }
+    
+    label {
+      display: block;
+      text-align: left;
+      font-size: 13px;
+      color: #777;
+      margin-top: 10px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+    }
+    
+    .food-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    .food-item {
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #fafafa;
+      font-weight: bold;
+    }
+    .food-item:hover {
+      background: #f8bbd0;
+    }
+
+    /* Prank Bill Style */
+    .bill-box {
+      border: 1px dashed #e91e63;
+      background-color: #fff5f8;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #e91e63;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STEP 1: Question -->
+  <div class="card" id="step1">
+    <div style="font-size: 50px;">🐶</div>
+    <h2>🌸 Will you go on a date with me? 🌸</h2>
+    <div class="btn-container">
+      <button class="yes-btn" style="width: auto;" onclick="nextStep(2)">YES 💕</button>
+      <button class="no-btn" id="noBtn" onmouseover="moveNoBtn()" onclick="moveNoBtn()">no 🐾</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Reaction -->
+  <div class="card hidden" id="step2">
+    <div style="font-size: 50px;">🧈</div>
+    <h2>WAIT YOU ACTUALLY SAID YES?? 🥳</h2>
+    <p>I was so ready for you to say no 🥹</p>
+    <button class="yes-btn" onclick="nextStep(3)">okay okay! →</button>
+  </div>
+
+  <!-- STEP 3: Self-Select Date & Time -->
+  <div class="card hidden" id="step3">
+    <div style="font-size: 40px;">📅 🐾</div>
+    <h2>So... when are you free?</h2>
+    
+    <label>Pick a Day 📅</label>
+    <input type="date" id="datePicker">
+    
+    <label>What Time? ⏰</label>
+    <select id="timePicker">
+      <option value="">Select a time...</option>
+      <option>12:00 PM</option>
+      <option>12:30 PM</option>
+      <option>1:00 PM</option>
+      <option>1:30 PM</option>
+      <option>2:00 PM</option>
+      <option>2:30 PM</option>
+      <option>3:00 PM</option>
+      <option>3:30 PM</option>
+      <option>4:00 PM</option>
+      <option>4:30 PM</option>
+    </select>
+    
+    <button class="yes-btn" onclick="nextStep(4)">set the date! 💕</button>
+  </div>
+
+  <!-- STEP 4: Food Preference -->
+  <div class="card hidden" id="step4">
+    <h2>What are we feeling? 🍽️✨</h2>
+    <p>pick your vibe</p>
+    <div class="food-grid">
+      <div class="food-item" onclick="nextStep(5)">🍕 Pizza</div>
+      <div class="food-item" onclick="nextStep(5)">🍣 Sushi</div>
+      <div class="food-item" onclick="nextStep(5)">🍔 Burgers</div>
+      <div class="food-item" onclick="nextStep(5)">🍝 Pasta</div>
+      <div class="food-item" onclick="nextStep(5)">🌮 Tacos</div>
+      <div class="food-item" onclick="nextStep(5)">🍜 Ramen</div>
+    </div>
+  </div>
+
+  <!-- STEP 5: Confirmation Message -->
+  <div class="card hidden" id="step5">
+    <h2>glad you didn't say no. be ready by 6, I'm coming to get you 🏎️</h2>
+    <p>P.S. normal people text. I made a website on Replit, during lunch, for you. no big deal 💕</p>
+    <br>
+    <button class="yes-btn" onclick="nextStep(6)">ok I accept! 🥳</button>
+  </div>
+
+  <!-- STEP 6: Final Prank Payment Screen -->
+  <div class="card hidden" id="step6">
+    <div style="font-size: 40px;">💳</div>
+    <h2>one small fee</h2>
+    <p>to confirm your acceptance of this date, please complete the following transaction, totally normal. everyone does this.</p>
+
+    <div class="bill-box">
+      <div style="text-align: left;">
+        <strong>Date Agreement™</strong>
+        <div style="font-size: 11px; color: #777;">one-time for • non-refundable • absolutely worth it</div>
+      </div>
+      <div class="price">$499</div>
+    </div>
+
+    <button class="yes-btn" onclick="alert('Payment Confirmed! ❤️ Date booked!')">pay $499 & confirm 💖</button>
+  </div>
+
+  <script>
+    function moveNoBtn() {
+      const btn = document.getElementById('noBtn');
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+      btn.style.position = 'fixed';
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+    }
+
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+      document.getElementById('step' + stepNumber).classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
+
