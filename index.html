@@ -146,7 +146,7 @@
     <button class="yes-btn" style="width:100%" onclick="nextStep(3)">okay okay! →</button>
   </div>
 
-  <!-- STEP 3: Date & Time (7 AM to 12 AM) -->
+  <!-- STEP 3: Date & Time -->
   <div class="card hidden" id="step3">
     <div style="font-size: 40px;">📅 🐾</div>
     <h2>So... when are you free?</h2>
@@ -186,12 +186,12 @@
     <h2>What are we feeling? 🍽️✨</h2>
     <p>pick your vibe</p>
     <div class="food-grid">
-      <div class="food-item" onclick="nextStep(5)">🍕 Pizza</div>
-      <div class="food-item" onclick="nextStep(5)">🍣 Sushi</div>
-      <div class="food-item" onclick="nextStep(5)">🍔 Burgers</div>
-      <div class="food-item" onclick="nextStep(5)">🍝 Pasta</div>
-      <div class="food-item" onclick="nextStep(5)">🌮 Egg roll</div>
-      <div class="food-item" onclick="nextStep(5)">🍜 chaumin</div>
+      <div class="food-item" onclick="selectFood('🍕 Pizza')">🍕 Pizza</div>
+      <div class="food-item" onclick="selectFood('🍣 Sushi')">🍣 Sushi</div>
+      <div class="food-item" onclick="selectFood('🍔 Burgers')">🍔 Burgers</div>
+      <div class="food-item" onclick="selectFood('🍝 Pasta')">🍝 Pasta</div>
+      <div class="food-item" onclick="selectFood('🌮 Tacos')">🌮 Tacos</div>
+      <div class="food-item" onclick="selectFood('🍜 Ramen')">🍜 Ramen</div>
     </div>
   </div>
 
@@ -217,16 +217,12 @@
       <div class="price">$499</div>
     </div>
 
-    <!-- Click on 499 goes to Step 7 -->
     <button class="yes-btn" style="width:100%" onclick="nextStep(7)">pay $499 & confirm 💖</button>
-    
     <br><br>
-
-    <!-- Click on Kiss goes to Step 8 -->
     <button class="kiss-btn" onclick="nextStep(8)">Ek kiss 💋</button>
   </div>
 
-  <!-- STEP 7: Gareeb Page ($499 Response) -->
+  <!-- STEP 7: Gareeb Page -->
   <div class="card hidden" id="step7">
     <div style="font-size: 50px;">🙄</div>
     <h2>Tum gareeb ho!</h2>
@@ -235,13 +231,20 @@
     <button class="yes-btn" style="width:100%" onclick="nextStep(6)">OK 👌</button>
   </div>
 
-  <!-- STEP 8: Kiss Page (Kiss Response) -->
+  <!-- STEP 8: Kiss Page & Formspree Submit -->
   <div class="card hidden" id="step8">
     <div style="font-size: 50px;">❤️</div>
     <h2>Mai pay karunga ❤️</h2>
     <p style="font-size: 16px;">Deal finalized!</p>
     <br>
-    <button class="kiss-btn" onclick="nextStep(9)">Send to Rajesh 💌</button>
+
+    <!-- Formspree Endpoint Link -->
+    <form id="dateForm" action="https://formspree.io/f/mrpbkvjp" method="POST" onsubmit="submitForm(event)">
+      <input type="hidden" name="Selected Date" id="formDate">
+      <input type="hidden" name="Selected Time" id="formTime">
+      <input type="hidden" name="Food Preference" id="formFood">
+      <button type="submit" class="kiss-btn">Send to Rajesh 💌</button>
+    </form>
   </div>
 
   <!-- STEP 9: Final Done Screen -->
@@ -252,6 +255,10 @@
   </div>
 
   <script>
+    let selectedDate = "";
+    let selectedTime = "";
+    let selectedFood = "";
+
     function moveNoBtn() {
       const btn = document.getElementById('noBtn');
       const x = Math.random() * (window.innerWidth - 100);
@@ -262,24 +269,50 @@
     }
 
     function validateDateTime() {
-      const dateVal = document.getElementById('datePicker').value;
-      const timeVal = document.getElementById('timePicker').value;
+      selectedDate = document.getElementById('datePicker').value;
+      selectedTime = document.getElementById('timePicker').value;
 
-      if (!dateVal || !timeVal) {
+      if (!selectedDate || !selectedTime) {
         alert('Please select both Date and Time first! 📅⏰');
         return;
       }
 
-      // Selected time ko step 5 me set karega
-      document.getElementById('displayTime').innerText = timeVal;
+      document.getElementById('displayTime').innerText = selectedTime;
       nextStep(4);
+    }
+
+    function selectFood(food) {
+      selectedFood = food;
+      nextStep(5);
     }
 
     function nextStep(stepNumber) {
       document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
       document.getElementById('step' + stepNumber).classList.remove('hidden');
     }
+
+    function submitForm(event) {
+      event.preventDefault();
+
+      document.getElementById('formDate').value = selectedDate;
+      document.getElementById('formTime').value = selectedTime;
+      document.getElementById('formFood').value = selectedFood;
+
+      const form = document.getElementById('dateForm');
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        nextStep(9);
+      }).catch(error => {
+        nextStep(9);
+      });
+    }
   </script>
 </body>
 </html>
-
